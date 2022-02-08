@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+
+    <title>table</title>
+</head>
+<body>
+<div id="app">
+    <el-upload
+            class="upload-demo"
+            drag
+            action="https://www.***.com/car/api/ocr/table"
+            :file-list="imagelist"
+            :on-preview="pre"
+    >
+        <i class="el-icon-upload"></i>
+        <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
+        <div class="el-upload__tip" slot="tip">只能上传jpg/png文件，且不超过500kb</div>
+    </el-upload>
+    <div class="img-content" v-for="(item,key) in imagelist" :key="key">
+        <img :src="item.url">
+        <div class="name">
+            <div>{{ item.name }}</div>f
+            <el-button type="text" @click="handleFileName(item,key)">修改名字</el-button>
+        </div>
+        <!-- 删除icon -->
+        <div class="del">
+            <i @click="handleFileRemove(item,key)" class="el-icon-delete2"></i>
+        </div>
+        <!-- 放大icon -->
+        <div class="layer" @click="handleFileEnlarge(item.url)">
+            <i class="el-icon-view"></i>
+        </div>
+    </div>
+</div>
+
+</body>
+<script src="https://unpkg.com/vue/dist/vue.js"></script>
+<!-- import JavaScript -->
+<!---->
+<script src="https://unpkg.com/element-ui/lib/index.js"></script>
+<script>
+    new Vue({
+        el: '#app',
+        data: function() {
+            return {
+                visible: false,
+                imagelist: [
+
+                ]
+
+            }
+        },
+        methods: {
+            pre(res) {
+                console.log(res.response.msg)
+                window.open("https://www.***.com/api/ocr/getId?id="+res.response.data);
+            }
+        }
+
+    })
+</script>
+
+</html>
